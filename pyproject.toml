@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "query-runner"
+version = "0.1.0"
+description = "Projeto voltado para rodar queries SQL com Postgres diversos bancos em sequência"
+authors = ["Alan Mateus <76778046+alanmts-am@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+psycopg2-binary = "^2.9.10"
+pyyaml = "^6.0.2"
+pandas = "^2.3.0"
+openpyxl = "^3.1.5"
+rich = "^15.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

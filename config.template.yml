@@ -1,0 +1,10 @@
+# Conexão do banco principal onde estão as demais conexões
+connection:
+  host:
+  port:
+  database:
+  username:
+  password:
+sql:
+  # Query para listar a conexão com os bancos. Deve ser na sequência host, port, database_name, username, password
+  database: select host, port, database, username, password from table
