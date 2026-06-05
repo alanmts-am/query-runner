@@ -7,7 +7,6 @@ import psycopg2
 class Postgres(Database):
     def __init__(self, host, port, database, username, pwd):
         super().__init__(host, port, database, username, pwd)
-    pass
 
     def connect(self):
         return psycopg2.connect(**{
@@ -18,23 +17,23 @@ class Postgres(Database):
             "password": self.pwd
         })
 
-    def run(self, query: str):
-        result: Result
+    def run(self, query: str) -> Result:
+        try:
+            conn = self.connect()
+        except Exception as ex:
+            return Result(data=[], columns=[], collected=False, error=str(ex))
 
-        conn = self.connect()
         cur = conn.cursor()
 
-        cur.execute(query)
-
         try:
+            cur.execute(query)
             records = cur.fetchall()
             columns = [desc[0] for desc in cur.description]
-
             result = Result(data=records, columns=columns, collected=True)
         except Exception as ex:
-            result = Result(data=[], columns=[], collected=False)
-        conn.commit()
+            result = Result(data=[], columns=[], collected=False, error=str(ex))
 
+        conn.commit()
         cur.close()
         conn.close()
 
