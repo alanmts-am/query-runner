@@ -27,8 +27,11 @@ class Postgres(Database):
 
         try:
             cur.execute(query)
-            records = cur.fetchall()
-            columns = [desc[0] for desc in cur.description]
+            if cur.description is not None:
+                records = cur.fetchall()
+                columns = [desc[0] for desc in cur.description]
+            else:
+                records, columns = [], []
             result = Result(data=records, columns=columns, collected=True)
         except Exception as ex:
             result = Result(data=[], columns=[], collected=False, error=str(ex))
