@@ -23,6 +23,8 @@ def generate_xlsx(databases_result: List[Result]) -> int:
     if not frames:
         return 0
     result_df = pd.concat(frames, ignore_index=True)
+    if result_df.empty:
+        return 0
     result_df.to_excel("data.xlsx", index=False)
     return len(result_df)
 
